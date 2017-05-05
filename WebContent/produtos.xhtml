@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  >
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Sistema de notas fiscais</title>
+</h:head>
+<h:body>
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Nome:" for="nome"/>
+			<h:inputText value="#{produtoBean.produto.nome}" id="nome"/>
+			<h:outputLabel value="Descrição:" for="descricao"/>
+			<h:inputText value="#{produtoBean.produto.descricao}" id="descricao"/>
+			<h:outputLabel value="Preço:" for="preco"/>
+			<h:inputText value="#{produtoBean.produto.preco}" id="preco"/>
+			
+			<h:commandButton action="#{produtoBean.gravar}" value="Gravar" />
+		</h:panelGrid>
+	</h:form>
+	<h:dataTable value="#{produtoBean.produtos}" var="produto">
+		<h:column>
+			<f:facet name="header">
+				Nome
+			</f:facet>
+			#{produto.nome}
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				Descricao
+			</f:facet>
+			#{produto.descricao}
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				Preco
+			</f:facet>
+			#{produto.preco}
+		</h:column>
+	</h:dataTable>
+</h:body>
+</html>
