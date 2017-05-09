@@ -36,4 +36,10 @@ public class ProdutoBean {
 		return this.produtos;
 	}
 	
+	public void remover(Produto produto) {
+		ProdutoDao dao = new ProdutoDao();
+		dao.remove(produto);
+		this.produtos = dao.listaTodos();
+	}
+	
 }
