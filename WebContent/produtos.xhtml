@@ -9,7 +9,12 @@
 	<title>Sistema de notas fiscais</title>
 </h:head>
 <h:body>
+	<h2>
+		<h:outputText value="Novo produto" rendered="#{empty produtoBean.produto.id}"/>
+		<h:outputText value="Editar produto" rendered="#{not empty produtoBean.produto.id}"/>
+	</h2>
 	<h:form>
+		<h:inputHidden value="#{produtoBean.produto.id}" />
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome:" for="nome"/>
 			<h:inputText value="#{produtoBean.produto.nome}" id="nome"/>
@@ -37,9 +42,19 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">
+					Preco
+				</f:facet>
+				#{produto.preco}
+			</h:column>
+			<h:column>
+				<f:facet name="header">
 					Ações
 				</f:facet>
-				<h:commandLink action="#{produtoBean.remover(produto)}" value="X" />>
+				<h:commandLink action="#{produtoBean.remover(produto)}" value="remover" />
+				|
+				<h:commandLink value="alterar">
+					<f:setPropertyActionListener value="#{produto}" target="#{produtoBean.produto}"/>
+				</h:commandLink>
 			</h:column>
 		</h:dataTable>
 	</h:form>
