@@ -24,6 +24,8 @@
 			<h:inputText value="#{produtoBean.produto.preco}" id="preco"/>
 			
 			<h:commandButton action="#{produtoBean.gravar}" value="Gravar" />
+			<h:commandButton action="#{produtoBean.cancela}" value="Cancelar" 
+						style="display:#{empty produtoBean.produto.id ? 'none' : 'block'}"/>
 		</h:panelGrid>
 	</h:form>
 	<h:form>
