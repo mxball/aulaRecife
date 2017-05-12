@@ -13,7 +13,7 @@
 		<h:outputText value="Novo produto" rendered="#{empty produtoBean.produto.id}"/>
 		<h:outputText value="Editar produto" rendered="#{not empty produtoBean.produto.id}"/>
 	</h2>
-	<h:form>
+	<h:form id="formProduto">
 		<h:inputHidden value="#{produtoBean.produto.id}" />
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome:" for="nome"/>
@@ -23,12 +23,14 @@
 			<h:outputLabel value="Preço:" for="preco"/>
 			<h:inputText value="#{produtoBean.produto.preco}" id="preco"/>
 			
-			<h:commandButton action="#{produtoBean.gravar}" value="Gravar" />
+			<h:commandButton action="#{produtoBean.gravar}" value="Gravar">
+				<f:ajax render="@form :formTabela" execute="@form"/>
+			</h:commandButton>
 			<h:commandButton action="#{produtoBean.cancela}" value="Cancelar" 
 						style="display:#{empty produtoBean.produto.id ? 'none' : 'block'}"/>
 		</h:panelGrid>
 	</h:form>
-	<h:form>
+	<h:form id="formTabela">
 		<h:dataTable value="#{produtoBean.produtos}" var="produto">
 			<h:column>
 				<f:facet name="header">
@@ -52,9 +54,12 @@
 				<f:facet name="header">
 					Ações
 				</f:facet>
-				<h:commandLink action="#{produtoBean.remover(produto)}" value="remover" />
+				<h:commandLink action="#{produtoBean.remover(produto)}" value="remover">
+					<f:ajax render="@form"/>
+				</h:commandLink>
 				|
 				<h:commandLink value="alterar">
+					<f:ajax render=":formProduto"/>
 					<f:setPropertyActionListener value="#{produto}" target="#{produtoBean.produto}"/>
 				</h:commandLink>
 			</h:column>
