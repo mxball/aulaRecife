@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Sistema de Notas Fiscais - UberDist</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<div id="cabecalho">
+		<h:graphicImage library="imagens" name="logo-uber.png"
+			id="logoCompany" />
+		<div id="usuarioLogado">
+			<h:form rendered="#{usuarioLogadoBean.logado}">
+				Logado como: #{usuarioLogadoBean.usuario.login}
+				<h:commandLink value="[Sair]" action="#{loginBean.logout}" />
+			</h:form>
+		</div>
+	</div>
+	<div id="conteudo">
+		<ui:insert name="corpo" />
+	</div>
+	<div id="rodape">
+	Copyright 2013. 
+	Todos os Direitos reservados a Shibao.
+	</div>
+</h:body>
+</html>
