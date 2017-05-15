@@ -21,7 +21,7 @@ public class ProdutoBean {
 		this.produto = produto;
 	}
 	
-	public void gravar(){
+	public String gravar(){
 		ProdutoDao produtoDao = new ProdutoDao();
 		if(produto.getId() == null){
 			produtoDao.adiciona(produto);
@@ -30,6 +30,7 @@ public class ProdutoBean {
 		}
 		this.produtos = produtoDao.listaTodos();
 		this.produto = new Produto();
+		return "produtos?faces-redirect=true";
 	}
 	
 	public List<Produto> getProdutos(){
