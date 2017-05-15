@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Sistema de Notas Fiscais - UberDist</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<div id="cabecalho">
+		<h:graphicImage library="imagens" name="logo-uber.png"
+			id="logoCompany" />
+		<div id="usuarioLogado">
+			<h:form>
+Logado como: #{usuarioLogadoBean.usuario.login}
+<h:commandLink value="[Sair]" action="#{loginBean.logout}" />
+			</h:form>
+		</div>
+	</div>
+	<div id="conteudo">
+		<h2>
+			<h:outputText value="Novo Usuario"
+				rendered="#{empty usuarioBean.usuario.id}" />
+			<h:outputText value="Editar Usuario"
+				rendered="#{not empty usuarioBean.usuario.id}" />
+		</h2>
+		<h:form id="formUsuario">
+			<h:inputHidden value="#{usuarioBean.usuario.id}" />
+			<fieldset>
+				<legend>Dados do Usuario</legend>
+				<h:outputLabel value="Login:" for="login" />
+				<h:inputText id="login" value="#{usuarioBean.usuario.login}" />
+				<h:outputLabel value="Senha:" for="senha" />
+				<h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}" />
+				<h:commandButton value="Gravar" action="#{usuarioBean.grava}">
+					<f:ajax render="@form :formTabela" execute="@form" />
+				</h:commandButton>
+			</fieldset>
+		</h:form>
+		<h2>Listagem de Usuarios</h2>
+		<h:form id="formTabela">
+			<h:dataTable value="#{usuarioBean.usuarios}" var="usuario"
+				styleClass="dados" rowClasses="impar,par">
+				<h:column>
+					<f:facet name="header">Id</f:facet>
+#{usuario.id}
+</h:column>
+				<h:column>
+					<f:facet name="header">Login</f:facet>
+#{usuario.login}
+</h:column>
+				<h:column>
+					<f:facet name="header">Senha</f:facet>
+#{usuario.senha}
+</h:column>
+				<h:column>
+					<h:commandLink action="#{usuarioBean.remove(usuario)}"
+						value="Remover">
+						<f:ajax render="@form" />
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<h:commandLink value="Alterar">
+						<f:ajax render=":formUsuario" />
+						<f:setPropertyActionListener value="#{usuario}"
+							target="#{usuarioBean.usuario}" />
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+			<h:commandLink value="Voltar" action="produto?faces-redirect=true" />
+		</h:form>
+	</div>
+	<div id="rodape">Copyright 2013. Todos os Direitos reservados a
+		Caelum.</div>
+</h:body>
+</html>

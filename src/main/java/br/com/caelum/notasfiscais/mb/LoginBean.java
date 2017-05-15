@@ -41,4 +41,10 @@ public class LoginBean implements Serializable{
 			return "login";
 		}
 	}
+
+	public String logout() {
+		this.usuarioLogado.deslogar();
+		return "login?faces-redirect=true";
+	}
+	
 }

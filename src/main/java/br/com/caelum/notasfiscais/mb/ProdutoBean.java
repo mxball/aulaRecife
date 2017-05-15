@@ -2,16 +2,21 @@ package br.com.caelum.notasfiscais.mb;
 
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.caelum.notasfiscais.dao.ProdutoDao;
 import br.com.caelum.notasfiscais.modelo.Produto;
 
-@ManagedBean
+@Named
+@RequestScoped
 public class ProdutoBean {
 	
 	private Produto produto = new Produto();
-	private List<Produto> produtos;;
+	private List<Produto> produtos;
+	@Inject
+	private ProdutoDao pDao;
 	
 	public Produto getProduto() {
 		return produto;
@@ -22,29 +27,26 @@ public class ProdutoBean {
 	}
 	
 	public String gravar(){
-		ProdutoDao produtoDao = new ProdutoDao();
 		if(produto.getId() == null){
-			produtoDao.adiciona(produto);
+			pDao.adiciona(produto);
 		} else{
-			produtoDao.atualiza(produto);
+			pDao.atualiza(produto);
 		}
-		this.produtos = produtoDao.listaTodos();
+		this.produtos = pDao.listaTodos();
 		this.produto = new Produto();
 		return "produtos?faces-redirect=true";
 	}
 	
 	public List<Produto> getProdutos(){
 		if(produtos == null){
-			ProdutoDao produtoDao = new ProdutoDao();
-			this.produtos = produtoDao.listaTodos();
+			this.produtos = pDao.listaTodos();
 		}
 		return this.produtos;
 	}
 	
 	public void remover(Produto produto) {
-		ProdutoDao dao = new ProdutoDao();
-		dao.remove(produto);
-		this.produtos = dao.listaTodos();
+		pDao.remove(produto);
+		this.produtos = pDao.listaTodos();
 	}
 	
 	public void cancela(){
