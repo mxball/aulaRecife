@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<cc:interface>
+	<cc:attribute name="render"/>
+	<cc:attribute name="value" required="true"/>
+	<cc:attribute name="action" required="true" method-signature="void action()"/>
+</cc:interface>
+
+<cc:implementation>
+	<h:commandButton action="#{cc.attrs.action}" value="#{cc.attrs.value}">
+		<f:ajax execute="@form" render="@form #{cc.attrs.render}" />
+	</h:commandButton>
+</cc:implementation>
+
+</html>

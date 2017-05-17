@@ -21,10 +21,7 @@
 					<h:outputLabel value="Descrição:" for="descricao"/>
 					<h:inputTextarea value="#{produtoBean.produto.descricao}" id="descricao"/>
 					<caelum:campoTexto id="preco" label="Preco: " value="#{produtoBean.produto.preco}"/>
-					
-					<h:commandButton action="#{produtoBean.gravar}" value="Gravar">
-						<f:ajax render="@form :formTabela" execute="@form"/>
-					</h:commandButton>
+					<caelum:componenteAjax action="#{produtoBean.gravar}" value="Gravar" render=":formTabela"/>
 					<h:commandButton action="#{produtoBean.cancela}" value="Cancelar" 
 								style="display:#{empty produtoBean.produto.id ? 'none' : 'block'}"/>
 				</h:form>
