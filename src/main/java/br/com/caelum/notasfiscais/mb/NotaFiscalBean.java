@@ -2,9 +2,7 @@ package br.com.caelum.notasfiscais.mb;
 
 import java.io.Serializable;
 
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import br.com.caelum.notasfiscais.dao.NotaFiscalDao;
 import br.com.caelum.notasfiscais.dao.ProdutoDao;
@@ -12,9 +10,9 @@ import br.com.caelum.notasfiscais.modelo.Item;
 import br.com.caelum.notasfiscais.modelo.NotaFiscal;
 import br.com.caelum.notasfiscais.modelo.Produto;
 import br.com.caelum.notasfiscais.tx.Transactional;
+import br.com.caelum.notasfiscais.util.ViewModel;
 
-@Named
-@ViewScoped
+@ViewModel
 public class NotaFiscalBean implements Serializable{
 
 	private static final long serialVersionUID = 3223736228670025720L;
