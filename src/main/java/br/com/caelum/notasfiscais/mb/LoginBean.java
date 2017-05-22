@@ -3,7 +3,7 @@ package br.com.caelum.notasfiscais.mb;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -21,6 +21,9 @@ public class LoginBean implements Serializable{
 	@Inject
 	private UsuarioLogadoBean usuarioLogado;
 	
+	@Inject
+	private Event<Usuario> eventoLogin;
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -34,6 +37,7 @@ public class LoginBean implements Serializable{
 		System.out.println("O login era valido? " + existe);
 		if(existe){
 			usuarioLogado.logar(usuario);
+			eventoLogin.fire(usuario);
 			return "produtos?faces-redirect=true";
 		} else{
 			usuarioLogado.deslogar();
