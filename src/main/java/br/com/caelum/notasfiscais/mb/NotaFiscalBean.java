@@ -11,11 +11,14 @@ import br.com.caelum.notasfiscais.dao.ProdutoDao;
 import br.com.caelum.notasfiscais.modelo.Item;
 import br.com.caelum.notasfiscais.modelo.NotaFiscal;
 import br.com.caelum.notasfiscais.modelo.Produto;
+import br.com.caelum.notasfiscais.tx.Transactional;
 
 @Named
 @ViewScoped
 public class NotaFiscalBean implements Serializable{
 
+	private static final long serialVersionUID = 3223736228670025720L;
+	
 	private NotaFiscal notaFiscal = new NotaFiscal();
 	@Inject
 	private NotaFiscalDao nDao;
@@ -56,6 +59,7 @@ public class NotaFiscalBean implements Serializable{
 		setIdProduto(null);
 	}
 	
+	@Transactional
 	public void gravar(){
 		nDao.adiciona(notaFiscal);
 		this.notaFiscal = new NotaFiscal();
