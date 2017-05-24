@@ -4,6 +4,7 @@
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:caelum	="http://java.sun.com/jsf/composite/caelum"
+	  xmlns:p="http://primefaces.org/ui"
 	  >
 <ui:composition template="/template.xhtml">
 	<ui:define name="corpo">
@@ -13,10 +14,8 @@
 			<fieldset>
 				<legend>Novo Item</legend>
 				<h:outputLabel value="Produto:" />
-				<h:selectOneMenu value="#{notaFiscalBean.idProduto}">
-					<f:selectItems value="#{produtoBean.produtos}" var="produto"
-						itemValue="#{produto.id}" itemLabel="#{produto.nome}" />
-				</h:selectOneMenu>
+				<p:autoComplete value="#{notaFiscalBean.idProduto}" completeMethod="#{notaFiscalBean.busca}" 
+						minQueryLength="3" var="produto" itemLabel="#{produto.nome}" itemValue="#{produto.id}"/>
 				<h:outputLabel value="Quantidade:" />
 				<h:inputText value="#{notaFiscalBean.item.quantidade}" />
 				<h:commandButton action="#{notaFiscalBean.guardaItem}"

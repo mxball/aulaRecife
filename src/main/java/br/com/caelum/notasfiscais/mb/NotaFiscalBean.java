@@ -1,6 +1,7 @@
 package br.com.caelum.notasfiscais.mb;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -76,5 +77,10 @@ public class NotaFiscalBean implements Serializable{
 			this.conversation.begin();
 		}
 		return "item?faces-redirect=true"; 
+	}
+	
+	public List<Produto> busca(String nome){
+		return pDao.buscaPorNome(nome);
+		
 	}
 }
