@@ -2,7 +2,10 @@ package br.com.caelum.notasfiscais.mb;
 
 import java.io.Serializable;
 
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.caelum.notasfiscais.dao.NotaFiscalDao;
 import br.com.caelum.notasfiscais.dao.ProdutoDao;
@@ -10,9 +13,9 @@ import br.com.caelum.notasfiscais.modelo.Item;
 import br.com.caelum.notasfiscais.modelo.NotaFiscal;
 import br.com.caelum.notasfiscais.modelo.Produto;
 import br.com.caelum.notasfiscais.tx.Transactional;
-import br.com.caelum.notasfiscais.util.ViewModel;
 
-@ViewModel
+@Named
+@ConversationScoped
 public class NotaFiscalBean implements Serializable{
 
 	private static final long serialVersionUID = 3223736228670025720L;
@@ -24,6 +27,9 @@ public class NotaFiscalBean implements Serializable{
 	private ProdutoDao pDao;
 	private Item item = new Item();
 	private Long idProduto;
+	
+	@Inject
+	private Conversation conversation;
 	
 	public NotaFiscal getNotaFiscal() {
 		return notaFiscal;
@@ -58,10 +64,17 @@ public class NotaFiscalBean implements Serializable{
 	}
 	
 	@Transactional
-	public void gravar(){
+	public String gravar(){
 		nDao.adiciona(notaFiscal);
+		conversation.end();
 		this.notaFiscal = new NotaFiscal();
+		return "notaFiscal?redirect-true";
 	}
 	
-	
+	public String avancar(){
+		if(conversation.isTransient()){
+			this.conversation.begin();
+		}
+		return "item?faces-redirect=true"; 
+	}
 }
